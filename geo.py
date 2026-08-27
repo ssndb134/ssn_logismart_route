@@ -5,15 +5,12 @@ def get_toll_geo(s, d):
     url = "https://rajmargyatra.nhai.gov.in/nhai/api/v2.0/getMMIMultipleRoutePlannerDev"
 
     headers = {
-        "Accept": "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-        "Origin": "https://rajmargyatra.nhai.gov.in",
-        "Referer": "https://rajmargyatra.nhai.gov.in/",
-        "User-Agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/139.0.0.0 Safari/537.36"
-        )
+        "accept": "application/json, text/plain, */*",
+        "accept-encoding": "gzip, deflate, br, zstd",
+        "accept-language": "en-US,en;q=0.9",
+        "content-type": "application/json",
+        "origin": "https://rajmargyatra.nhai.gov.in",
+        "referer": "https://rajmargyatra.nhai.gov.in/"
     }
 
     payload = {
@@ -28,11 +25,10 @@ def get_toll_geo(s, d):
         headers=headers,
         json=payload
     )
-    print("STATUS:", response.status_code, flush=True)
-    print("CONTENT TYPE:", response.headers.get("content-type"), flush=True)
-    print("RESPONSE:", response.text[:5000], flush=True)
+    print(response)
     dat = response.json()
     return dat["payload"]["routes"][0]["data"]["total_cost"], dat["payload"]["routes"][0]["data"]["distance"], dat["payload"]["routes"][0]["data"]["total_tolls"], dat["payload"]["routes"][0]["geometry"]
+
 
 
 def get_toll_mappls(s, d):
